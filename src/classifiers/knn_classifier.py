@@ -10,7 +10,10 @@ class KnnClassifier(ClassifierInterface):
 
     def train(self, train_dataset: DatasetInterface) -> None:
         # salvar as amostras do dataset
-        pass
+        self.train_samples = []
+        train_dataset
+
+
 
     def predict(self, test_dataset: DatasetInterface) -> List[str]:
         """ para cada amostra no dataset, buscar os k vizinhos mais proximos e 

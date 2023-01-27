@@ -10,9 +10,9 @@ class ImageDataset(DatasetInterface):
         # ler arquivo contendo os nomes das imagens e as classes e armazenar
         # em uma lista
 
-        path = "/home/lcee/Documentos/POO-P2/TRAB2-POO-UFES/data/datasets/img_small/test.txt"
+        path = "data/datasets/img_small/test/000.png"
 
-        with open(path, "r") as file:
+        with open(path, "r", encoding='latin-1', errors='ignore') as file:
             self.list = file.readlines()
 
     def size(self) -> int:
@@ -25,7 +25,7 @@ class ImageDataset(DatasetInterface):
         # a imagem e a respectiva classe
 
 
-        imagePath, imageClass = self.list[idx-1].split()
+        imagePath, imageClass = self.list[idx].split()
 
         image = cv2.imread(imagePath, cv2.IMREAD_GRAYSCALE)
 
