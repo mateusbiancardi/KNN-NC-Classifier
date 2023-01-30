@@ -10,10 +10,13 @@ class ImageDataset(DatasetInterface):
         # ler arquivo contendo os nomes das imagens e as classes e armazenar
         # em uma lista
 
-        path = "data/datasets/img_small/test/000.png"
+        
+        self.path = path
 
-        with open(path, "r", encoding='latin-1', errors='ignore') as file:
+        with open(self.path, "r") as file:
             self.list = file.readlines()
+        
+        self.path, _ = self.path.rsplit("/", 1)
 
     def size(self) -> int:
         # retornar tamanho do dataset (numero de linhas do arquivo)
@@ -24,9 +27,8 @@ class ImageDataset(DatasetInterface):
         # ler a i-esima imagem do disco usando a biblioteca cv2 e retornar
         # a imagem e a respectiva classe
 
-
         imagePath, imageClass = self.list[idx].split()
-
+        imagePath = self.path + '/' + imagePath
         image = cv2.imread(imagePath, cv2.IMREAD_GRAYSCALE)
 
         return image, imageClass
