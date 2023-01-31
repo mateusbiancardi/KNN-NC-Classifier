@@ -13,11 +13,13 @@ class Experiment:
         self.test_dataset = test_dataset
         self.true_classes = self._get_true_classes_from_dataset(
             self.test_dataset)
+        print (self.true_classes)
 
     def run(self, classifier: ClassifierInterface) -> Dict[str, float]:
         """ executa o experimento """
         classifier.train(self.train_dataset)
         pred_classes = classifier.predict(self.test_dataset)
+        print (pred_classes)
 
         metrics = {
             "accuracy": accuracy(self.true_classes, pred_classes)

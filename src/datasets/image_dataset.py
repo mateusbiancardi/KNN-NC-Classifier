@@ -20,15 +20,23 @@ class ImageDataset(DatasetInterface):
 
     def size(self) -> int:
         # retornar tamanho do dataset (numero de linhas do arquivo)
+        self.dataset_size = len(self.list)
 
-        return len(self.list)
+        return self.dataset_size
 
     def get(self, idx: int) -> Tuple[Any, str]:
         # ler a i-esima imagem do disco usando a biblioteca cv2 e retornar
         # a imagem e a respectiva classe
+        vector_image = []
 
         imagePath, imageClass = self.list[idx].split()
         imagePath = self.path + '/' + imagePath
         image = cv2.imread(imagePath, cv2.IMREAD_GRAYSCALE)
 
-        return image, imageClass
+        for i in range (len(image)):
+            for j in range(len(image[0])):
+                vector_image.append(int(image[i][j]))
+
+        #print (vector_image)
+
+        return vector_image, str(imageClass)
