@@ -17,19 +17,16 @@ class KnnClassifier(ClassifierInterface):
         for i in range(train_dataset.size()):
             self.train_samples.append(train_dataset.get(i))
             
-        #print (self.train_samples)
-        #print (self.train_samples[5][1])
 
 
     def predict(self, test_dataset: DatasetInterface) -> List[str]:
         """ para cada amostra no dataset, buscar os k vizinhos mais proximos e 
         retornar a classe mais frequente entre eles """
-
-
         k = 5
         euclidian_All = []
         euclidian_list = []
-        most_Common = []
+
+        # Lê todas as amostras de treino e calcula a distância euclidiana
         for j in range(test_dataset.size()):
             amostra, classe = test_dataset.get(j)
 
@@ -46,25 +43,12 @@ class KnnClassifier(ClassifierInterface):
             
             euclidian_list.append(euclidian_All)
             euclidian_All = []
-
-        
-
-            
-            # obtém os 5 menores valores, depois verifica qual o índice desses valores
-            # na euclidian_list e armazena em uma outra lista
-            
-            #k_smallest_index = []
-            #k_neighbors = heapq.nsmallest(k, euclidian_list)
-
-            #for i in range(k):
-            #    k_smallest_index.append(euclidian_list.index(k_neighbors[i]))
-            #print (k_smallest_index)
             
         k_neighbors_all = []
-
         k_smallest_index = []
         k_temporary_index = []
 
+        # Pega os index dos menores valores de distância euclidiana
         for m in range(test_dataset.size()):
             k_neighbors_all = heapq.nsmallest(k, euclidian_list[m])
             for i in range(k):
@@ -72,12 +56,10 @@ class KnnClassifier(ClassifierInterface):
 
             k_smallest_index.append(k_temporary_index)
             k_temporary_index = []
-        #print (k_smallest_index)
         
-        class_list = []
-        
+
+        # Calcula qual classe mais apareceu e retorna uma lista com os valores
         result = []
-        #print (predicted_classes)
         for m in range(test_dataset.size()):
             class_count = {}
             for i in k_smallest_index[m]:
@@ -85,7 +67,5 @@ class KnnClassifier(ClassifierInterface):
                     class_count[self.train_samples[i][1]] += 1
                 else:
                     class_count[self.train_samples[i][1]] = 1
-            result.append(max(class_count, key=class_count.get))
-
-        
+            result.append(max(class_count, key=class_count.get))  
         return result
