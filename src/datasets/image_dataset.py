@@ -37,6 +37,4 @@ class ImageDataset(DatasetInterface):
             for j in range(len(image[0])):
                 vector_image.append(int(image[i][j]))
 
-        #print (vector_image)
-
         return vector_image, str(imageClass)
