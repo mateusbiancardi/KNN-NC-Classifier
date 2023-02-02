@@ -10,7 +10,7 @@ def load_config(path: str) -> Dict:
         "type": "image",
         "train_path": "data/datasets/img_small/train.txt",
         "test_path": "data/datasets/img_small/test.txt",
-        "classifier": "knn"
+        "classifier": "nc"
     }
     """
 

@@ -10,7 +10,7 @@ class ImageDataset(DatasetInterface):
         # ler arquivo contendo os nomes das imagens e as classes e armazenar
         # em uma lista
 
-        
+        'C:/Users/Mateus/Desktop/Programacao/Python/TRAB2-POO-UFES/data/datasets'
         self.path = path
 
         with open(self.path, "r") as file:
