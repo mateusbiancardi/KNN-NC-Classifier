@@ -42,7 +42,7 @@ class NearestCentroidClassifier(ClassifierInterface):
                 if cls not in self.average_vector:
                     self.average_vector[cls] = []
 
-                self.average_vector[cls].append(sum/len(lst_vetores[0]))
+                self.average_vector[cls].append(sum/len(lst_vetores))
                 
         
 
