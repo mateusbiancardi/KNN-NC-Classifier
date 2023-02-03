@@ -13,6 +13,7 @@ class NearestCentroidClassifier(ClassifierInterface):
 
     def train(self, train_dataset: DatasetInterface) -> None:
         """ calcular os centroides por classe """
+        # Armazena os vetores de treino
         self.train_samples = []
         for i in range(train_dataset.size()):
             self.train_samples.append(train_dataset.get(i))
@@ -27,30 +28,30 @@ class NearestCentroidClassifier(ClassifierInterface):
             
             self.class_finder[cls].append(self.train_samples[i][0])
 
+        # Calcula o centróide
         self.average_vector = {}
         for cls, lst_vetores in self.class_finder.items():
             """ calcular centroides para cada classe   """
-            # para cada vetor in lst_vetores
+            # Para cada dimensão do vetor
             for j in range(len(lst_vetores[0])):
                 sum = 0
                 for i in range(len(lst_vetores)):        
-                    # para cada dimensao do vetor
+                    # Para cada vetor
                     sum += lst_vetores[i][j]
 
                 if cls not in self.average_vector:
                     self.average_vector[cls] = []
 
-                self.average_vector[cls].append(sum/len(lst_vetores))
-                    # ....
-            #print (self.average_vector[cls])
-    
-        return self.average_vector
+                self.average_vector[cls].append(sum/len(lst_vetores[0]))
+                
         
 
     def predict(self, test_dataset: DatasetInterface) -> List[str]:
         """ para cada amostra no dataset, buscar o centroide mais proximo e respectiva retornar a classe """
+        # Cálculo da distância euclidiana dos vetores de teste e os centróides
         euclidian_All = []
         euclidian_list = {}
+        # Criação da biblioteca que armazena a distância do vetor a cada centróide 
         for cls, _ in self.average_vector.items():
             clsTemp = cls
             for i in range(test_dataset.size()):
@@ -68,30 +69,19 @@ class NearestCentroidClassifier(ClassifierInterface):
 
             euclidian_list[cls].append(euclidian_All)
             euclidian_All = []
-
-        #print (euclidian_list[cls])
+        
+        # Verifica a menor distância do vetor a classe e retorna o predict 
+        # de cada vetor
         minor_distance = math.inf
         minor_temporary = 0
         minor_index = []
 
-        for i in range(len(euclidian_list)):
+        for i in range(len(euclidian_list[clsTemp][0])):
             for cls, _ in euclidian_list.items():
                 if euclidian_list[cls][0][i] < minor_distance:
                     minor_distance = euclidian_list[cls][0][i]
                     minor_temporary = cls
-                minor_index.append(minor_temporary)
-                minor_distance = math.inf
-
-        #print (minor_index)
-        
-        result = []
-        for i in range(len(minor_index)):
-            class_count = {}
-            for cls, _ in euclidian_list.items():
-                if minor_index[i] in class_count:
-                    class_count[minor_index[i]] += 1
-                else:
-                    class_count[minor_index[i]] = 1
-                result.append(max(class_count, key=class_count.get))  
-        print (result)
-        return result
+            minor_distance = math.inf
+            minor_index.append(minor_temporary)
+            
+        return minor_index
