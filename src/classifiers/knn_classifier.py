@@ -1,5 +1,6 @@
 
 from typing import Dict, List
+
 from .classifier_interface import ClassifierInterface
 from src.datasets.dataset_interface import DatasetInterface
 import math
@@ -17,7 +18,6 @@ class KnnClassifier(ClassifierInterface):
         for i in range(train_dataset.size()):
             self.train_samples.append(train_dataset.get(i))
             
-
 
     def predict(self, test_dataset: DatasetInterface) -> List[str]:
         """ para cada amostra no dataset, buscar os k vizinhos mais proximos e 
@@ -40,7 +40,6 @@ class KnnClassifier(ClassifierInterface):
                 euclidian_Distance = math.sqrt(sum_total)
                 euclidian_All.append(euclidian_Distance)
             
-            
             euclidian_list.append(euclidian_All)
             euclidian_All = []
             
@@ -56,7 +55,7 @@ class KnnClassifier(ClassifierInterface):
 
             k_smallest_index.append(k_temporary_index)
             k_temporary_index = []
-        
+
 
         # Calcula qual classe mais apareceu e retorna uma lista com os valores
         result = []
@@ -67,5 +66,5 @@ class KnnClassifier(ClassifierInterface):
                     class_count[self.train_samples[i][1]] += 1
                 else:
                     class_count[self.train_samples[i][1]] = 1
-            result.append(max(class_count, key=class_count.get))  
+            result.append(max(class_count, key=class_count.get))
         return result
