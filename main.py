@@ -9,9 +9,9 @@ from src.io.report import write_report
 
 def main():
     # obter os nomes dos arquivos de configuracao e de saida da linha de comando
-    # args = parse_args()
+    args = parse_args()
     # le o arquivo json e retorna como um dicionario
-    config = load_config("data/configs/knn_image_config.json")
+    config = load_config(args.config_path)
 
     train_dataset = create_dataset(config["train_path"], config["test_path"], config["type"])
     test_dataset = create_dataset(config["test_path"], config["test_path"], config["type"])
@@ -21,7 +21,7 @@ def main():
     metrics = experiment.run(classifier)
 
     # escreve o arquivo de saida
-    write_report("report.txt", config, metrics)
+    write_report(args.report_path, config, metrics)
 
     print("Success.")
 

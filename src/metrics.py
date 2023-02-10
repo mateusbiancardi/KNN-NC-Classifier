@@ -13,3 +13,5 @@ def accuracy(true_classes: List[str], predicted_classes: List) -> float:
     accuracy_percentage = float(correct_predictions) / len(true_classes)
 
     return accuracy_percentage
+
+
