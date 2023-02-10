@@ -7,9 +7,9 @@ def load_config(path: str) -> Dict:
     """ le o arquivo json e retorna como um dicionario """
     dummy_JSON_string = """
     {
-        "type": "image",
-        "train_path": "data/datasets/img_medium/train.txt",
-        "test_path": "data/datasets/img_medium/test.txt",
+        "type": "news",
+        "train_path": "data/datasets/news-medium-small/train.txt",
+        "test_path": "data/datasets/news-medium-small/test.txt",
         "classifier": "nc"
     }
     """

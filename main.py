@@ -13,8 +13,8 @@ def main():
     # le o arquivo json e retorna como um dicionario
     config = load_config("data/configs/knn_image_config.json")
 
-    train_dataset = create_dataset(config["train_path"], config["type"])
-    test_dataset = create_dataset(config["test_path"], config["type"])
+    train_dataset = create_dataset(config["train_path"], config["test_path"], config["type"])
+    test_dataset = create_dataset(config["test_path"], config["test_path"], config["type"])
     classifier = create_classifier(config["classifier"])
 
     experiment = Experiment(train_dataset, test_dataset)
